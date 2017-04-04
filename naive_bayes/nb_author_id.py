@@ -29,7 +29,14 @@ features_train, features_test, labels_train, labels_test = preprocess()
 from sklearn.naive_bayes import GaussianNB
 import numpy as np
 cls = GaussianNB()
-pred = cls.fit(features_train, labels_train).predict(features_test)
+
+t0 = time()
+fit = cls.fit(features_train, labels_train)
+print "training: ", round(time()-t0, 3), "s"
+
+t1 = time()
+pred = cls.predict(features_test)
+print "predicting: ", round(time()-t1, 3), "s"
 
 float(np.sum(pred == labels_test)) / len(labels_test)
 
